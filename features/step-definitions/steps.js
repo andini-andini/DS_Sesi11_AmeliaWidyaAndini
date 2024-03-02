@@ -34,3 +34,7 @@ Then(/^Amelia should see home page again with a continue shopping button$/, asyn
 Then(/^Amelia should see menu$/, async () => {
     await HomePage.Menu()
 })
+
+Then(/^Amelia is logout the account$/, async () => {
+    await HomePage.Logout()
+})

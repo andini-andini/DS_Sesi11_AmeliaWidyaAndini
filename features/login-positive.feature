@@ -9,4 +9,5 @@ Feature: Swag Labs - Login - positive
     And Amelia add item to cart
     And Amelia should see cart page
     And Amelia should see home page again with a continue shopping button
-    Then Amelia should see menu
+    And Amelia should see menu
+    Then Amelia is logout the account

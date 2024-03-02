@@ -20,6 +20,10 @@ class HomePage extends Page {
         return $('#react-burger-menu-btn')
     }
 
+    get btnLogout() {
+        return $('#logout_sidebar_link')
+    }
+
     async validateHomePage() {
         expect(browser).toHaveUrlContaining('/inventory.html')
     }
@@ -46,6 +50,12 @@ class HomePage extends Page {
         await browser.pause(1000);
         await this.btnMenu.click();
         expect(await this.btnMenu.isDisplayed()).toBe(true)
+    }
+
+    async Logout(){
+        await browser.pause(1000);
+        await this.btnLogout.click();
+        expect(browser).toHaveUrlContaining('/')
     }
 }
 

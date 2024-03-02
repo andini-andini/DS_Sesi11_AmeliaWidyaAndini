@@ -18,7 +18,7 @@ class LoginPage extends Page {
     }
 
     async validateLockedOutUserError(dynamicMessage) {
-        await element.errorLokedUser(dynamicMessage).waitForDisplayed({ timeout: 2500 });
+        await element.fieldUsername.waitForDisplayed({ timeout: 2500 });
         expect(element.errorLokedUser(dynamicMessage)).toBeDisplayed()
     }
 
