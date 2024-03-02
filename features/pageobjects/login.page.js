@@ -1,40 +1,29 @@
-import { $ } from '@wdio/globals'
+import { $, expect } from '@wdio/globals'
 import Page from './page.js';
 
-/**
- * sub page containing specific selectors and methods for a specific page
- */
+const element = {
+    fieldUsername: $('#user-name'),
+    fieldPassword: $('#password'),
+    btnLogin: $('#login-button'),
+    errorLokedUser: (dynamicMessage) => $(`//h3[text()="${dynamicMessage}"]`)
+}
+
 class LoginPage extends Page {
-    /**
-     * define selectors using getter methods
-     */
-    get inputUsername () {
-        return $('#username');
+
+    async login(username) {
+        await element.fieldUsername.waitForDisplayed({ timeout: 2500 });
+        await element.fieldUsername.setValue(username);
+        await element.fieldPassword.setValue(process.env.PASSWORD_SAUCEDEMO);
+        await element.btnLogin.click();
     }
 
-    get inputPassword () {
-        return $('#password');
+    async validateLockedOutUserError(dynamicMessage) {
+        await element.errorLokedUser(dynamicMessage).waitForDisplayed({ timeout: 2500 });
+        expect(element.errorLokedUser(dynamicMessage)).toBeDisplayed()
     }
 
-    get btnSubmit () {
-        return $('button[type="submit"]');
-    }
-
-    /**
-     * a method to encapsule automation code to interact with the page
-     * e.g. to login using username and password
-     */
-    async login (username, password) {
-        await this.inputUsername.setValue(username);
-        await this.inputPassword.setValue(password);
-        await this.btnSubmit.click();
-    }
-
-    /**
-     * overwrite specific options to adapt it to page object
-     */
-    open () {
-        return super.open('login');
+    open() {
+        return super.open('/');
     }
 }
 
